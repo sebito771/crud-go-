@@ -9,6 +9,7 @@ import (
 	"example/models"
 
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/gin-gonic/gin"
 )
 
 const (
@@ -20,6 +21,47 @@ const (
 	ErrNoEncontrado   = "Jugador no encontrado"
 
 )
+
+// --- Router ---
+func MethodAsignment(r *gin.Engine) {
+
+	
+    r.POST("/jugadores",func(c *gin.Context){
+	var nuevoJugador models.Jugador
+	if err := c.ShouldBindJSON(&nuevoJugador);err!=nil{
+		c.JSON(400,gin.H{"error":err.Error()})
+		return
+	}
+	
+	if nuevoJugador.Nombre==""{
+		c.JSON(400,gin.H{"error":"El nombre del jugador no puede ir vacio"})
+		return
+	}
+
+	if nuevoJugador.Puntaje < 0 {
+	  c.JSON(400,gin.H{"error":"el puntaje del jugador no puede ser negativo"})
+	  return
+	}
+
+	result, err := db.DB.Exec("INSERT INTO jugadores (nombre, puntaje) VALUES (?, ?)", nuevoJugador.Nombre, nuevoJugador.Puntaje)
+	if err != nil {
+		c.JSON(500,gin.H{"error":err.Error()})
+		return
+	}
+
+    id, err := result.LastInsertId()
+    if err != nil {
+        c.JSON(500, gin.H{"error": "no se pudo obtener el ID"})
+        return
+    }
+	
+	nuevoJugador.Id = int(id)
+	c.JSON(201,gin.H{
+		"mensaje":"jugador creado exitosamente",
+        "jugador": nuevoJugador,
+		})
+	})
+}
 
 // --- Función auxiliar ---
 func responderJSON(w http.ResponseWriter, status int, data interface{}) {
