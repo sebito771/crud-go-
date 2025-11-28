@@ -54,12 +54,35 @@ func MethodAsignment(r *gin.Engine) {
         c.JSON(500, gin.H{"error": "no se pudo obtener el ID"})
         return
     }
-	
+
 	nuevoJugador.Id = int(id)
 	c.JSON(201,gin.H{
 		"mensaje":"jugador creado exitosamente",
         "jugador": nuevoJugador,
 		})
+	})
+
+	r.GET("/jugadores/:id",func(c *gin.Context){
+		strId:= c.Param("id")
+		jugadorID, err := strconv.Atoi(strId)
+        if err != nil {
+    c.JSON(400, gin.H{"error": "el id debe ser un número"})
+    return
+}  
+
+	  var player models.Jugador
+	   err = db.DB.QueryRow("SELECT id, nombre, puntaje FROM jugadores WHERE id = ?", jugadorID).Scan(&player.Id, &player.Nombre, &player.Puntaje)
+	if err == sql.ErrNoRows {
+		c.JSON(404,gin.H{"error":"el id no existe en la base de datos"})
+		return
+	} else if err != nil {
+	   c.JSON(500,gin.H{"error":err.Error()})
+		return
+	}
+	
+	c.JSON(200,gin.H{
+		"jugador":player,
+	})
 	})
 }
 
