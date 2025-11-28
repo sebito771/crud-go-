@@ -1,0 +1,1 @@
+crud basico en go que maneja jugadores en una base de datos y peticiones http 
