@@ -84,6 +84,29 @@ func MethodAsignment(r *gin.Engine) {
 		"jugador":player,
 	})
 	})
+
+	r.GET("/jugadores",func(c *gin.Context){
+		rows,err:= db.DB.Query("SELECT id,nombre,puntaje from jugadores")
+		if err != nil{
+			c.JSON(500,gin.H{"error":"error al consultar la base de datos","err": err.Error()})
+			return
+		}
+		defer rows.Close()
+
+		var jugadores []models.Jugador
+
+		for rows.Next(){
+
+		var j models.Jugador
+		if err := rows.Scan(&j.Id, &j.Nombre, &j.Puntaje); err != nil {
+			c.JSON(500,gin.H{"error":"no se pudieron recorrer las filas"})
+			return
+		}
+		  
+          jugadores= append(jugadores, j)
+		  c.JSON(200,jugadores)
+		}
+	})
 }
 
 // --- Función auxiliar ---
