@@ -5,3 +5,4 @@ type Jugador struct {
 	Nombre  string `json:"nombre"`
 	Puntaje int    `json:"puntaje"`
 }
+
