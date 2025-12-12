@@ -70,7 +70,6 @@ func MethodAsignment(r *gin.Engine) {
     c.JSON(400, gin.H{"error": "el id debe ser un número"})
     return
     }  
-
 	  var player models.Jugador
 	   err = db.DB.QueryRow("SELECT id, nombre, puntaje FROM jugadores WHERE id = ?", jugadorID).Scan(&player.Id, &player.Nombre, &player.Puntaje)
 	if err == sql.ErrNoRows {
@@ -108,7 +107,8 @@ func MethodAsignment(r *gin.Engine) {
 		  c.JSON(200,jugadores)
 		}
 	})
-r.PATCH("/jugadores/:id", func(c *gin.Context) {
+
+    r.PATCH("/jugadores/:id", func(c *gin.Context) {
     // 1. Convertir ID
     strId := c.Param("id")
     id, err := strconv.Atoi(strId)
@@ -167,7 +167,30 @@ r.PATCH("/jugadores/:id", func(c *gin.Context) {
         "mensaje": "jugador actualizado correctamente",
         "jugador": jugador,
     })
-})
+    })
+
+    r.DELETE("/jugadores/:id",func(c *gin.Context){
+		strId:= c.Param("id")
+		id,err:= strconv.Atoi(strId); if err!=nil{
+			c.JSON(400,gin.H{"error":"id no valido"})
+			return
+		}	
+	result,err:=db.DB.Exec("DELETE FROM jugadores WHERE id= ?",id) 
+	if err != nil {
+		c.JSON(500,gin.H{"error":"error en la base de datos"})
+		return
+	}
+
+	row,_:= result.RowsAffected()
+	if row==0{
+		c.JSON(404,gin.H{"error":"jugador no encontrado"})
+		return
+	}
+
+	c.JSON(200,gin.H{"mensaje":"jugador borrado exitosamente"})
+	})
+
+
 
 }
 
