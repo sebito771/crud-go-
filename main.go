@@ -18,35 +18,6 @@ const (
 )
 
 
-// // --- Router ---
-// func MethodAsignment(w http.ResponseWriter, r *http.Request) {
-// 	sttr := strings.TrimPrefix(r.URL.Path, "/jugadores")
-// 	sttr = strings.TrimPrefix(sttr, "/")
-
-// 	if sttr == "" {
-// 		switch r.Method {
-// 		case http.MethodPost:
-// 			handlers.CrearJugador(w, r)
-// 		case http.MethodGet:
-// 			handlers.ConsultarJugadores(w, r)
-// 		default:
-// 			http.Error(w, ErrMetodoNoPermit, http.StatusMethodNotAllowed)
-// 		}
-// 	} else {
-// 		contx := context.WithValue(r.Context(), "id", sttr)
-// 		r = r.WithContext(contx)
-// 		switch r.Method {
-// 		case http.MethodGet:
-// 			handlers.Consultarjugador(w, r)
-// 		case http.MethodPut:
-// 			handlers.ActualizarJugador(w, r)
-// 		case http.MethodDelete:
-// 			handlers.EliminarJugador(w, r)
-// 		default:
-// 			http.Error(w, ErrMetodoNoPermit, http.StatusMethodNotAllowed)
-// 		}
-// 	}
-// }
 
 func main() {
 
