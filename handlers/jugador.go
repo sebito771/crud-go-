@@ -12,13 +12,9 @@ import (
 )
 
 const (
-	ContentType       = "Content-Type"
-	ApplicationJSON   = "application/json"
-	ErrMetodoNoPermit = "Método no permitido"
 	ErrDecodificar    = "Error al decodificar JSON"
 	ErrCodificar      = "Error al codificar JSON"
 	ErrNoEncontrado   = "Jugador no encontrado"
-
 )
 
 // --- Router ---
@@ -28,7 +24,7 @@ func MethodAsignment(r *gin.Engine) {
     r.POST("/jugadores",func(c *gin.Context){
 	var nuevoJugador models.Jugador
 	if err := c.ShouldBindJSON(&nuevoJugador);err!=nil{
-		c.JSON(400,gin.H{"error":"error al decodificar el json"})
+		c.JSON(400,gin.H{"error":ErrDecodificar})
 		return
 	}
 	

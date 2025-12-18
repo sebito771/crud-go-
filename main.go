@@ -8,15 +8,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-// --- Constantes ---
-const (
-	ContentType       = "Content-Type"
-	ApplicationJSON   = "application/json"
-	ErrMetodoNoPermit = "Método no permitido"
-	ErrDecodificar    = "Error al decodificar JSON"
-	ErrCodificar      = "Error al codificar JSON"
-	ErrNoEncontrado   = "Jugador no encontrado"
-)
+
 
 
 
