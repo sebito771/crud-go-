@@ -12,6 +12,13 @@ type JugadorRepo struct {
   DB *sql.DB
 }
 
+func NewJugadorRepo(db *sql.DB) *JugadorRepo {
+	return &JugadorRepo{
+		DB: db,
+	}
+}
+
+
 
 func (db *JugadorRepo) Create(j models.Jugador )  (int64,error) {
 	query := "INSERT INTO jugadores (nombre, puntaje) VALUES (?, ?)"
