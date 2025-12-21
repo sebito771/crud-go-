@@ -13,10 +13,13 @@ type JugadorRepo struct {
 }
 
 
-func (db *JugadorRepo) Create(j models.Jugador ) error {
+func (db *JugadorRepo) Create(j models.Jugador )  (int64,error) {
 	query := "INSERT INTO jugadores (nombre, puntaje) VALUES (?, ?)"
-	_, err := db.DB.Exec(query, j.Nombre, j.Puntaje)
-		 return err
+	result, err := db.DB.Exec(query, j.Nombre, j.Puntaje)
+		if err != nil{
+			return  0,err
+		}
+	 return result.LastInsertId()
 }
 
 func (db *JugadorRepo) GetAll() ([]models.Jugador, error) {
