@@ -42,12 +42,23 @@ func (db *JugadorRepo) GetAll() ([]models.Jugador, error) {
 	return jugadores, nil
 }
 
-func (db *JugadorRepo) GetById(id int64) (models.Jugador, error) {
+func (r *JugadorRepo) GetById(id int64) (models.Jugador, error) {
+	var jugador models.Jugador
+
 	query := "SELECT id, nombre, puntaje FROM jugadores WHERE id = ?"
-	var j models.Jugador
-	err := db.DB.QueryRow(query, id).Scan(&j.Id, &j.Nombre, &j.Puntaje)
-	return j, err
+	err := r.DB.QueryRow(query, id).
+		Scan(&jugador.Id, &jugador.Nombre, &jugador.Puntaje)
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return models.Jugador{}, err
+		}
+		return models.Jugador{}, err
+	}
+
+	return jugador, nil
 }
+
 
 func (db *JugadorRepo) Delete(id int64) ( int64 ,  error){
 	query:= "DELETE FROM jugadores WHERE id = ?"
