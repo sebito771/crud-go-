@@ -1,6 +1,6 @@
 package dto
 
-type JugadorDTO struct{
+type JugadorPatchDTO struct{
 	
 	 Nombre *string `json:"nombre"`
 	 Puntaje *int `json:"puntaje"`

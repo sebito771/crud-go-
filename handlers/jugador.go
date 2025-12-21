@@ -125,7 +125,7 @@ func MethodAsignment(r *gin.Engine) {
     }
 
     // 3. Bind del JSON (DTO)
-    var datos dto.JugadorDTO
+    var datos dto.JugadorPatchDTO
     if err := c.ShouldBindJSON(&datos); err != nil {
         c.JSON(400, gin.H{"error": "error al decodificar JSON"})
         return
