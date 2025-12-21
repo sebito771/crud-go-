@@ -42,7 +42,7 @@ func (db *JugadorRepo) GetAll() ([]models.Jugador, error) {
 	return jugadores, nil
 }
 
-func (db *JugadorRepo) GetById(id int) (models.Jugador, error) {
+func (db *JugadorRepo) GetById(id int64) (models.Jugador, error) {
 	query := "SELECT id, nombre, puntaje FROM jugadores WHERE id = ?"
 	var j models.Jugador
 	err := db.DB.QueryRow(query, id).Scan(&j.Id, &j.Nombre, &j.Puntaje)
