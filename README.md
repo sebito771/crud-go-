@@ -1,16 +1,95 @@
-# CRUD en Go con MySQL
+# CRUD de Jugadores – Go + Gin
 
-Este proyecto es un CRUD sencillo construido inicialmente en Go puro y luego refactorizado utilizando el framework Gin. Incluye conexión a MySQL/MariaDB, manejo de rutas, controladores y una estructura organizada para facilitar mantenimiento y escalabilidad.
+Proyecto backend desarrollado en **Go** usando el framework **Gin**.  
+Implementa un CRUD completo de jugadores aplicando una **arquitectura por capas**
+para separar correctamente responsabilidades.
 
-## Características
+---
 
-* CRUD completo de jugadores
-* Conexión a MySQL/MariaDB
-* Arquitectura modular (routes, controllers, db, models)
-* Refactor progresivo de Go puro → Gin
+## 🚀 Tecnologías utilizadas
 
-## Tecnologías
+- Go
+- Gin
+- MariaDB
+- database/sql
+- godotenv
 
-* Go
-* Gin
-* MySQL / MariaDB
+---
+
+## 🧱 Arquitectura del proyecto
+
+El proyecto sigue una estructura por capas:
+
+- **handlers/**  
+  Se encargan únicamente del manejo HTTP (requests, responses y códigos de estado).
+
+- **services/**  
+  Contienen la lógica de negocio y validaciones del dominio.
+
+- **repository/**  
+  Manejan el acceso a datos y consultas SQL.
+
+- **models/**  
+  Definen las entidades principales del sistema.
+
+- **dto/**  
+  Data Transfer Objects usados para operaciones parciales (PATCH).
+
+- **db/**  
+  Configuración y conexión a la base de datos.
+
+- **main.go**  
+  Punto de entrada del proyecto. Inicializa dependencias y levanta el servidor.
+
+---
+
+## 📌 Endpoints disponibles
+
+### ➕ Crear jugador
+**POST** `/jugadores`
+
+```json
+{
+  "nombre": "Carlos",
+  "puntaje": 100
+}
+📄 Obtener todos los jugadores
+GET /jugadores
+
+🔍 Obtener jugador por ID
+GET /jugadores/{id}
+
+✏️ Actualizar jugador (PATCH parcial)
+PATCH /jugadores/{id}
+
+Ejemplos:
+
+json
+{
+  "nombre": "Nuevo nombre"
+}
+
+json
+{
+  "puntaje": 50
+}
+Se utilizan DTOs con punteros para permitir la actualización parcial de campos.
+
+🗑️ Eliminar jugador
+DELETE /jugadores/{id}
+
+
+
+⚙️ Configuración del entorno
+
+Crear un archivo .env en la raíz del proyecto:
+
+DB_USER=usuario
+DB_PASSWORD=password
+DB_HOST=localhost
+DB_PORT=3306
+DB_NAME=nombre_db
+
+
+### Ejecucion del Programa
+- go run main.go
