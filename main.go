@@ -29,8 +29,20 @@ func main() {
 
 	r:= gin.Default()
 	r.Use(gin.Logger())
+
+		//CORS
+	r.Use(cors.New(cors.Config{
+    AllowOrigins: []string{
+        "http://localhost:5500",
+        "http://127.0.0.1:5500",
+    },
+    AllowMethods: []string{"GET", "POST", "PATCH", "DELETE"},
+    AllowHeaders: []string{"Content-Type"},
+}))
 	handlers.MethodAsignment(r,service)
-	r.Use(cors.Default())
+
+
+
  
     
     log.Println("Servidor iniciado en el puerto 8080")
