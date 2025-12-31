@@ -1,0 +1,130 @@
+/* =========================
+   Reset básico
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* =========================
+   Layout general
+========================= */
+body {
+  min-height: 100vh;
+  background-color: #f4f6f8;
+  color: #333;
+  padding: 40px;
+}
+
+/* =========================
+   Títulos
+========================= */
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+h2 {
+  margin-bottom: 15px;
+}
+
+/* =========================
+   Menú de botones
+========================= */
+#botones {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#botones button {
+  padding: 12px 18px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* =========================
+   Secciones
+========================= */
+section {
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 8px;
+  margin: 0 auto 25px auto;
+  width: 100%;
+  max-width: 900px;
+}
+
+/* =========================
+   Formularios
+========================= */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+label {
+  font-weight: bold;
+}
+
+input {
+  padding: 10px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 12px;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  background-color: #2f80ed;
+  color: white;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/* =========================
+   Lista de jugadores
+========================= */
+#jugadores-lista {
+  list-style: none;
+  margin-top: 10px;
+}
+
+#jugadores-lista li {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* =========================
+   Botón regresar
+========================= */
+#regresar {
+  display: block;
+  margin: 30px auto;
+  width: 150px;
+  background-color: #555;
+}
+
+/* =========================
+   Responsive
+========================= */
+@media (max-width: 600px) {
+  body {
+    padding: 20px;
+  }
+
+  #botones {
+    flex-direction: column;
+  }
+}

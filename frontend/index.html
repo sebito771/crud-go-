@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Front end API-CRUD</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <h1>Jugadores CRUD</h1>
+
+    <section id="botones">
+        <button type="button" id="agregar-jugador">Agregar Jugador</button>
+        <button type="button" id="obtener-jugadores">Obtener Jugadores</button>
+        <button type="button" id="borrar-jugador">Borrar Jugadores</button>
+        <button type="button" id="actualizar-jugador">Actualizar Jugador</button>
+    </section>
+
+    <section id="seccion-agregar">
+        <h2>Agregar Jugador</h2>
+        <form id="formulario">
+            <label for="nombre">Nombre del jugador</label>
+            <input type="text" id="nombre" placeholder="Nombre" />
+
+            <label for="puntaje">Puntaje</label>
+            <input type="number" id="puntaje" placeholder="23" />
+
+            <button type="submit" id="mandar-form">Agregar</button>
+        </form>
+    </section>
+
+    <section id="seccion-borrar">
+        <h2>Borrar Jugador</h2>
+        <form id="formulario-borrar">
+            <label for="number-borrar">ID del jugador</label>
+            <input type="number" id="number-borrar" placeholder="ID del jugador" />
+
+            <button type="submit" id="borrar-form">Borrar</button>
+        </form>
+    </section>
+
+    <section id="seccion-actualizar">
+        <h2>Actualizar Jugador</h2>
+        <form id="formulario-actualizar">
+            <label for="number-actualizar">ID del jugador</label>
+            <input type="number" id="number-actualizar" placeholder="ID del jugador" />
+
+            <label for="nombre-actualizar">Nuevo nombre</label>
+            <input type="text" id="nombre-actualizar" placeholder="Nuevo nombre" />
+
+            <label for="puntaje-actualizar">Nuevo puntaje</label>
+            <input type="number" id="puntaje-actualizar" placeholder="Nuevo puntaje" />
+
+            <button type="submit" id="actualizar-form">Actualizar</button>
+        </form>
+    </section>
+
+    <section id="seccion-lista">
+        <h2>Lista de Jugadores</h2>
+        <ul id="jugadores-lista"></ul>
+    </section>
+
+    <button type="button" id="regresar">Back</button>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
