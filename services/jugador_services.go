@@ -13,9 +13,9 @@ type JugadorServices struct{
 	repo repository.JugadorRepo
 }
 
-func NewJugadorService(r repository.JugadorRepo) *JugadorServices {
+func NewJugadorService(r *repository.JugadorRepo) *JugadorServices {
 	return &JugadorServices{
-		repo: r,
+		repo: *r,
 	}
 }
 

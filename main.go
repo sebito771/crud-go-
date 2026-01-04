@@ -25,7 +25,7 @@ func main() {
 	 defer db.DB.Close()
 
     repo:= repository.NewJugadorRepo(db.DB)
-	service:= services.NewJugadorService(*repo)
+	service:= services.NewJugadorService(repo)
 
 	r:= gin.Default()
 	r.Use(gin.Logger())
