@@ -5,27 +5,32 @@ import (
 	"example/repository"
 	"errors"
 	"strings"
-	"database/sql"
 	"example/dto"
 )
 
+
+var NombreObligatorio = errors.New("el nombre es Obligatorio")
+var PuntajeNegativo = errors.New("el puntaje no puede ser negativo")
+
+
 type JugadorServices struct{
-	repo repository.JugadorRepo
+	repo *repository.JugadorRepo
 }
 
 func NewJugadorService(r *repository.JugadorRepo) *JugadorServices {
 	return &JugadorServices{
-		repo: *r,
+		repo:  r,
 	}
 }
 
 func (s *JugadorServices) CreateJugador(j models.Jugador) (int64, error) {
 	if strings.TrimSpace(j.Nombre) == "" {
-		return 0, errors.New("el nombre es obligatorio")
+		return 0, NombreObligatorio
 	}
+	
 
 	if j.Puntaje < 0 {
-		return 0, errors.New("el puntaje no puede ser negativo")
+		return 0, PuntajeNegativo
 	}
 
 	id, err := s.repo.Create(j)
@@ -49,9 +54,6 @@ func (s *JugadorServices) ConsultarJugador(id int64) (models.Jugador, error) {
 	jugador, err := s.repo.GetById(id)
 
 	if err != nil {
-		if errors.Is(err, sql.ErrNoRows) {
-			return models.Jugador{}, errors.New("jugador no existe")
-		}
 		return models.Jugador{}, err
 	}
 
@@ -66,7 +68,7 @@ func (s *JugadorServices)BorrarJugador(id int64)error{
 	}
 
 	if row == 0{
-		return  errors.New("Jugador no encontrado")
+		return  repository.JugadorNotFound
 	}
 
 	return nil
@@ -85,11 +87,11 @@ func (s *JugadorServices) ActualizarJugador(
 
 	// 2️⃣ Validaciones de negocio (opcionales pero recomendadas)
 	if dto.Nombre != nil && strings.TrimSpace(*dto.Nombre) == "" {
-		return errors.New("el nombre no puede estar vacío")
+		return NombreObligatorio
 	}
 
 	if dto.Puntaje != nil && *dto.Puntaje < 0 {
-		return errors.New("el puntaje no puede ser negativo")
+		return PuntajeNegativo
 	}
 
 	// 3️⃣ Ejecutar update
@@ -100,7 +102,7 @@ func (s *JugadorServices) ActualizarJugador(
 
 	// 4️⃣ Verificar existencia
 	if rows == 0 {
-		return errors.New("jugador no existe")
+		return repository.JugadorNotFound
 	}
 
 	return nil

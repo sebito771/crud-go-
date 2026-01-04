@@ -1,12 +1,14 @@
 package repository
 
-import(
+import (
 	"database/sql"
-	"example/models"
+	"errors"
 	"example/dto"
+	"example/models"
 	"strings"
-	
 )
+
+var JugadorNotFound = errors.New("No hay coincidencias con la base de datos")
 
 type JugadorRepo struct {
   DB *sql.DB
@@ -57,8 +59,8 @@ func (r *JugadorRepo) GetById(id int64) (models.Jugador, error) {
 		Scan(&jugador.Id, &jugador.Nombre, &jugador.Puntaje)
 
 	if err != nil {
-		if err == sql.ErrNoRows {
-			return models.Jugador{}, err
+		if errors.Is(err,sql.ErrNoRows) {
+			return models.Jugador{}, JugadorNotFound
 		}
 		return models.Jugador{}, err
 	}
